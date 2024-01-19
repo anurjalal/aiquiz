@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}"/>
+</head>
+<body>
+
+<div class="topnav">
+    <a class="active" href="/">Beranda</a>
+    {% if not token_status %}
+        <a href="/form/registration">Registrasi</a>
+        <a href="/form/login">Masuk</a>
+    {% endif %}
+    {% if token_status %}
+        <a href="/form/quiz">Kuis</a>
+        <a href="/logout">Logout</a>
+    {% endif %}
+</div>
+
+
+
+{% if response %}
+    {% if response['success'] %}
+        <h4 style="color:#04AA6D;">{{ cresponse['message'] }}</h4>
+    {% else %}
+        <h4 style="color:Tomato;">{{ response['message'] }}</h4>
+        {% endif %}
+{% endif %}
+
+<h4>
+    Silakan login:
+</h4>
+<form action="{{ url_for('user.login') }}" method="POST">
+    <label for="uname">Username:</label><br>
+    <input type="text" name="username"><br><br>
+    <label for="pass">Password:</label><br>
+    <input type="password" name="password"><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+<br>
+<br>
+
+<footer>
+    Ahmad Nurjalal
+</footer>
+</body>
+</html>

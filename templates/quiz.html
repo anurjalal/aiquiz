@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}"/>
+</head>
+<body>
+
+<div class="topnav">
+    <a class="active" href="/">Beranda</a>
+    {% if not token_status %}
+        <a href="/form/registration">Registrasi</a>
+        <a href="/form/login">Masuk</a>
+    {% endif %}
+    {% if token_status %}
+        <a href="/form/quiz">Kuis</a>
+        <a href="/logout">Logout</a>
+    {% endif %}
+</div>
+
+<div style="text-align: center;">
+<h2>Selamat datang di AI QUIZ</h2>
+
+<h4 style="color:#381091"> Ini adalah kuis seputar pengetahuanmu tentang AI</h4>
+<h4 style="color:#381091">Jawablah pertanyaan berikut ini: </h4>
+
+{% if response %}
+    <h4 style="color:#04AA6D;">{{ response['message'] }}</h4>
+{% endif %}
+</div>
+
+{% if quiz_data %}
+<form action="/save_user_answer" method="POST">
+    <h4>{{ quiz_data['question'] }}</h4><br>
+    <input type="hidden" id={{ quiz_data["question_id"] }} name="question_id" value={{ quiz_data["question_id"] }}>
+    {% for i in quiz_data['answer_choices']  %}
+        <input type="radio" id={{ i["id"]}} name="answer_id" value={{ i["id"]}}>
+        <label for={{ i["id"]}}>{{ i["answer"] }}</label><br>
+    {% endfor %}
+<br>
+    <input type="submit" value="Submit">
+</form>
+{% else %}
+    <div style="text-align: center;">
+<h4 style="color:Tomato;">Pertanyaan lain belum tersedia untuk anda</h4>
+    </div>
+{% endif %}
+
+<br>
+<br>
+<div style="text-align: center;">
+<h4>username anda : {{ user_lb_data["username"] }}</h4>
+<h4>skor anda : {{ user_lb_data["score"] }}</h4>
+</div>
+<br>
+<br>
+
+<div style="text-align: center;">
+<h2>Leaderboard</h2>
+{% if leaderboard %}
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Score</th>
+        </tr>
+        {% for i in leaderboard %}
+            <tr>
+                <td>{{ i['username']}} </td>
+                <td>{{ i['score']}} </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+</div>
+
+<br>
+<br>
+
+<footer>
+    Ahmad Nurjalal
+</footer>
+</body>
+</html>

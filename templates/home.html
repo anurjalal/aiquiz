@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}"/>
+</head>
+<body>
+
+<div class="topnav">
+    <a class="active" href="/">Beranda</a>
+    {% if not token_status %}
+        <a href="/form/registration">Registrasi</a>
+        <a href="/form/login">Masuk</a>
+    {% endif %}
+    {% if token_status %}
+        <a href="/form/quiz">Kuis</a>
+        <a href="/logout">Logout</a>
+    {% endif %}
+</div>
+
+{% if response %}
+    <h4 style="color:#04AA6D;">{{ response['message'] }}</h4>
+{% endif %}
+
+<h4>
+    Silakan masukan kota untuk mendapatkan prakiraan cuaca dalam 3 hari:
+</h4>
+<form action="{{ url_for('weather.get_weather_3day') }}" method="GET">
+    <label for="fname">Location:</label><br>
+    <input type="text" name="location"><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+{% if forcast %}
+    <h4 style="color:#04AA6D;">Berikut ramalan cuaca 3 Hari di {{ location }} :</h4>
+{% endif %}
+{% for item in forcast %}
+    <span>Tanggal {{ item['dt'] }} :</span><br>
+    <span>Suhu siang hari : {{ item['day_temp'] }} C</span><br>
+    <span>Kondisi siang hari : {{ item['day_condition'] }}</span><br>
+    <span>Suhu malam hari : {{ item['night_temp'] }} C</span><br>
+    <span>Kondisi malam hari : {{ item['night_condition'] }}</span><br>
+    <br>
+{% endfor %}
+
+<br>
+<br>
+
+<footer>
+    Ahmad Nurjalal
+</footer>
+</body>
+</html>
