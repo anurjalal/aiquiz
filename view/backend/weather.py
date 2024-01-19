@@ -12,4 +12,4 @@ def get_weather_3day():
     return render_template("home.html",
                            location=location,
                            forcast=forcast,
-                           token_status=is_valid_token(request.cookies["token"]))
+                           token_status=is_valid_token(request.cookies.get("token")))

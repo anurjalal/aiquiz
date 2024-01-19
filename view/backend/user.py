@@ -8,7 +8,7 @@ user_blueprint = Blueprint("user", __name__)
 
 @user_blueprint.route('/signup', methods=['POST'])
 def signup():
-    is_valid = is_valid_token(request.cookies["token"])
+    is_valid = is_valid_token(request.cookies.get("token"))
     if is_valid:
         return redirect("/")
     username = request.form.get('username')
@@ -23,7 +23,7 @@ def signup():
 
 @user_blueprint.route('/login', methods=['POST'])
 def login():
-    is_valid = is_valid_token(request.cookies["token"])
+    is_valid = is_valid_token(request.cookies.get("token"))
     if is_valid:
         return redirect("/")
     username = request.form.get('username')

@@ -9,7 +9,7 @@ quiz_form = Blueprint("quiz_form", __name__)
 
 @quiz_form.route('/form/quiz', methods=['GET'])
 def quiz():
-    token = request.cookies["token"]
+    token = request.cookies.get("token")
     is_valid = is_valid_token(token)
     if not is_valid:
         return redirect("/")
