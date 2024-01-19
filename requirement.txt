@@ -14,4 +14,5 @@ Flask-Script==2.0.6
 psycopg2-binary
 SQLAlchemy-serializer
 PyYAML
-urllib3
+pymysql==1.0.2
+responses
