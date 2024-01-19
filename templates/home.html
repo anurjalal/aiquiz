@@ -35,7 +35,7 @@
     <h4 style="color:#04AA6D;">Berikut ramalan cuaca 3 Hari di {{ location }} :</h4>
 {% endif %}
 {% for item in forcast %}
-    <span>Tanggal {{ item['dt'] }} :</span><br>
+    <span>{{ item['day_name'] }}, {{ item['dt'] }} :</span><br>
     <span>Suhu siang hari : {{ item['day_temp'] }} C</span><br>
     <span>Kondisi siang hari : {{ item['day_condition'] }}</span><br>
     <span>Suhu malam hari : {{ item['night_temp'] }} C</span><br>
