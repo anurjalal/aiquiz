@@ -75,10 +75,11 @@ def retrieve_answers(question_id):
     return result
 
 
+# todo: use subquery instead
 def retrieve_correct_answer(question_id):
-    answer = (db.session.query(Answer).filter(Answer.question_id == question_id)
-              .outerjoin(Question, Question.correct_answer_id == Answer.id).first())
-    return answer
+    question = db.session.query(Question).filter_by(id=question_id).first()
+    correct_answer = db.session.query(Answer).filter_by(id=question.correct_answer_id).first()
+    return correct_answer
 
 
 def retrieve_quiz_result(username):
