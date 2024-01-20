@@ -25,7 +25,7 @@
 <h4>
     Silakan masukan kota untuk mendapatkan prakiraan cuaca dalam 3 hari:
 </h4>
-<form action="{{ url_for('weather.get_weather_3day') }}" method="GET">
+<form action="{{ url_for('weather.get_weather_3day') }}" method="POST">
     <label for="fname">Location:</label><br>
     <input type="text" name="location"><br><br>
     <input type="submit" value="Submit">
