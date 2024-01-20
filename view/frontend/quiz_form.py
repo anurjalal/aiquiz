@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect
 from middleware.authenticator import is_valid_token
 from common.util import get_username_from_jwt
-from service.quiz import *
+from service.quiz import generate_valid_question_random, get_leaderboard_by, get_leaderboard
 
 
 quiz_form = Blueprint("quiz_form", __name__)

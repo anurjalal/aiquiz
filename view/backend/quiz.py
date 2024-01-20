@@ -1,6 +1,6 @@
 from flask import Blueprint, request, redirect
-from service.quiz import *
-from common.util import *
+from service.quiz import save_user_answer
+from common.util import get_username_from_jwt
 from webargs import fields
 from webargs.flaskparser import use_args
 
@@ -14,7 +14,7 @@ quiz_args = {
 
 @quiz_blueprint.route('/save_user_answer', methods=['POST'])
 @use_args(quiz_args, location="form")
-def post(args):
+def save(args):
     token = request.cookies.get("token")
     username = get_username_from_jwt(token)
     question_id = int(request.form.get('question_id'))

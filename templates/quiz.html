@@ -30,7 +30,7 @@
 </div>
 
 {% if quiz_data %}
-<form action="/save_user_answer" method="POST">
+    <form action="{{ url_for('quiz.save') }}" method="POST">
     <h4>{{ quiz_data['question'] }}</h4><br>
     <input type="hidden" id={{ quiz_data["question_id"] }} name="question_id" value={{ quiz_data["question_id"] }}>
     {% for i in quiz_data['answer_choices']  %}
