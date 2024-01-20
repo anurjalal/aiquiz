@@ -2,12 +2,22 @@ from flask import Blueprint, request, make_response, render_template, redirect
 from service import user
 from common.response import CommonResponse
 from middleware.authenticator import is_valid_token
+from webargs import fields
+from webargs.flaskparser import use_args
 
 user_blueprint = Blueprint("user", __name__)
 
+login_args = {
+    "username": fields.Str(validate=lambda p: 0 < len(p) <= 255),
+    "password": fields.Str(validate=lambda p: 0 < len(p) <= 255),
+}
+
+signup_args = (login_args |
+               {"password_confirmation": fields.Str(validate=lambda p: 0 < len(p) <= 255)})
 
 @user_blueprint.route('/signup', methods=['POST'])
-def signup():
+@use_args(signup_args, location="form")
+def signup(args):
     is_valid = is_valid_token(request.cookies.get("token"))
     if is_valid:
         return redirect("/")
@@ -22,7 +32,8 @@ def signup():
 
 
 @user_blueprint.route('/login', methods=['POST'])
-def login():
+@use_args(login_args, location="form")
+def login(args):
     is_valid = is_valid_token(request.cookies.get("token"))
     if is_valid:
         return redirect("/")

@@ -15,4 +15,5 @@ psycopg2-binary
 SQLAlchemy-serializer
 PyYAML
 pymysql==1.0.2
-responses
+responses==0.24.1
+webargs==8.4.0
