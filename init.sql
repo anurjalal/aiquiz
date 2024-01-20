@@ -67,4 +67,4 @@ INSERT INTO answer (question_id, answer) VALUES
 UPDATE question SET correct_answer_id= 2 WHERE id=1
 UPDATE question SET correct_answer_id= 5 WHERE id=2
 UPDATE question SET correct_answer_id= 11 WHERE id=3
-UPDATE question SET correct_answer_id= 5 WHERE id=4;
+UPDATE question SET correct_answer_id= 15 WHERE id=4;
